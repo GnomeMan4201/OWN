@@ -1,0 +1,139 @@
+
+[*] Phase: CHIMERA
+    > python ./phases/chimera_injector.py
+[!] No valid targets found.
+
+[*] Phase: ESCALATE
+    > python ./phases/auto_escalator.py
+[!] No high-priority targets in memory.
+
+[*] Phase: INJECT
+    > python ./phases/code_feedback.py
+
+[*] Phase: FORK
+    > python ./phases/sandbox_forker.py
+[!] Sandbox detected: False
+
+[*] Phase: ENTROPY
+    > python ./phases/entropy_harvester.py
+
+[*] Phase: BACKDOOR
+    > python ./phases/backdoor_seed.py
+[*] Ephemeral shell listening on :7788 for 15s
+Exception ignored in: <module 'threading' from '/data/data/com.termux/files/usr/lib/python3.12/threading.py'>
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/usr/lib/python3.12/threading.py", line 1624, in _shutdown
+    lock.acquire()
+KeyboardInterrupt: 
+
+[*] Phase: SIGNATURE
+    > python ./phases/sig_mutator.py
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/pwn/./phases/sig_mutator.py", line 17, in <module>
+    rewrite_signatures()
+  File "/data/data/com.termux/files/home/pwn/./phases/sig_mutator.py", line 14, in rewrite_signatures
+    save_memory(memory)
+  File "/data/data/com.termux/files/home/pwn/phases/memory_engine.py", line 13, in save_memory
+    with open(MEMORY_FILE, 'w') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '../sessions/target_memory.json'
+[✗] Error in SIGNATURE
+
+
+[*] Phase: DRIFT
+    > python ./phases/signal_drift.py
+[*] Probing 0 targets for latency drift...
+
+[*] Phase: NEURAL
+    > python ./phases/neural_mutator.py
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/pwn/./phases/neural_mutator.py", line 35, in <module>
+    run()
+  File "/data/data/com.termux/files/home/pwn/./phases/neural_mutator.py", line 20, in run
+    with open(OUTPUT, "w") as f:
+         ^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '../payloads/neural_payloads.txt'
+[✗] Error in NEURAL
+
+
+[*] Phase: AI
+    > python ./phases/ai_loop.py
+[*] BlackICE AI loop engaged.
+[!] No pcap at ../logs/capture.pcap
+
+[*] Phase: MIRROR (Background)
+    > python ./phases/phantom_mirror.py &
+
+[*] Phase: INTEL
+    > python ./phases/intel_aggregator.py
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/pwn/./phases/phantom_mirror.py", line 31, in <module>
+    start_phantom()
+  File "/data/data/com.termux/files/home/pwn/./phases/phantom_mirror.py", line 23, in start_phantom
+    s.bind((ip, port))
+OSError: [Errno 98] Address already in use
+
+[*] Phase: DECOY (Background)
+    > python ./phases/decoy_generator.py &
+
+[*] Phase: IDENTITY
+    > python ./phases/identity_faker.py
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/pwn/./phases/decoy_generator.py", line 27, in <module>
+    serve_decoy()
+  File "/data/data/com.termux/files/home/pwn/./phases/decoy_generator.py", line 19, in serve_decoy
+    s.bind((ip, port))
+OSError: [Errno 98] Address already in use
+
+[*] Phase: DNS
+    > python ./phases/dns_beacon.py
+[!] No targets found.
+
+[*] Phase: FIREWALL
+    > python ./phases/firewall_poison.py
+
+[*] Phase: POLYMORPH
+    > python ./phases/polymorpher.py
+
+[*] Phase: SUBNET
+    > python ./phases/lan_spread.py
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/pwn/./phases/lan_spread.py", line 19, in <module>
+    expand_targets()
+  File "/data/data/com.termux/files/home/pwn/./phases/lan_spread.py", line 15, in expand_targets
+    save_memory(memory)
+  File "/data/data/com.termux/files/home/pwn/phases/memory_engine.py", line 13, in save_memory
+    with open(MEMORY_FILE, 'w') as f:
+         ^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '../sessions/target_memory.json'
+[✗] Error in SUBNET
+
+
+[*] Phase: KEYSTONE
+    > python ./phases/keystone_injector.py
+
+[*] Phase: POSSESSION
+    > python ./phases/phantom_c2.py && sleep 2 && python ./phases/ghost_probe.py
+Traceback (most recent call last):
+  File "/data/data/com.termux/files/home/pwn/./phases/phantom_c2.py", line 32, in <module>
+    serve()
+  File "/data/data/com.termux/files/home/pwn/./phases/phantom_c2.py", line 24, in serve
+    s.bind((HOST, PORT))
+OSError: [Errno 98] Address already in use
+[✗] Error in POSSESSION
+
+
+[*] Phase: POISON
+    > python ./phases/dns_poisoner.py
+
+[*] Phase: MIMIC
+    > python ./phases/fingerprint_cloner.py
+
+[*] Phase: FEEDBACK
+    > python ./phases/feedback_mutator.py
+
+[*] Phase: PIVOT
+    > python ./phases/pivot_bootstrapper.py
+
+[*] Phase: KERNEL
+    > python ./phases/kernel_probe.py
