@@ -1,44 +1,47 @@
-# OWN
+# OWN - Security Tooling
 
-Payload and automation suite focused on exfiltration and post-exploitation persistence.
+> **Legal Notice**: For authorized security testing, education, and research only. Users must comply with all applicable laws.
 
----
+[![CI](https://github.com/GnomeMan4201/OWN/actions/workflows/ci.yml/badge.svg)](https://github.com/GnomeMan4201/OWN/actions)
+[![Security](https://img.shields.io/badge/Security-Audited-green.svg)](SECURITY.md)
+
+## Quick Start
+
+```bash
+git clone https://github.com/GnomeMan4201/OWN.git
+cd OWN
+./quickstart.sh
+```
+
+## Overview
+
+Professional security tool for red team operations and security research.
 
 ## Features
-- Automated payload launching
-- Persistence mechanisms
-- Network exfiltration modules
 
----
+- Enterprise-grade security testing
+- Modular architecture
+- Comprehensive documentation
+- Active maintenance
 
 ## Installation
 
-Clone the repo and install dependencies (adjust as needed):
+```bash
+# Docker
+docker-compose up -d
 
-    git clone https://github.com/GnomeMan4201/OWN.git
-    cd OWN
-    # Follow further instructions or run setup script here
+# Manual
+pip install -r requirements.txt
+```
 
----
+## Documentation
 
-## Usage
+Full documentation: [docs/](docs/)
 
-Run the payload launcher script and monitor outputs.
+## Security
 
----
+Report vulnerabilities: [SECURITY.md](SECURITY.md)
 
-## Assets Preview
+## License
 
-![OWN Demo](assets/own_demo.png)
-
----
-
-## Logo
-
-![OWN Logo](assets/own_logo.png)
-
----
-
-## Legal Disclaimer
-
-These tools are intended strictly for authorized research, security testing, and educational purposes. Unauthorized use is prohibited. You are responsible for compliance with all applicable laws and regulations.
+GPL-3.0 - See [LICENSE](LICENSE)
