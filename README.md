@@ -1,3 +1,5 @@
+![OWN Logo](.github/branding/logo.png)
+
 # OWN - Security Tooling
 
 > **Legal Notice**: For authorized security testing, education, and research only. Users must comply with all applicable laws.
