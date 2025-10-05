@@ -84,7 +84,7 @@ beacon = DNSBeacon(domain="example.com")
 beacon.send_data(encrypted_data)
 ```
 
-🏗 Architecture
+Architecture
 
 ```
 OWN/
@@ -102,7 +102,7 @@ OWN/
 └── quickstart.sh        # Setup script
 ```
 
-🔧 Development
+Development
 
 Code Quality
 
@@ -142,9 +142,9 @@ Never use against systems you don't own or have explicit permission to test.
 
 See SECURITY.md for responsible disclosure guidelines.
 
-🤝 Contributing
+Contributing
 
-We welcome contributions from security professionals!
+We welcome contributions from security professionals.
 
 1. Fork the repository
 2. Create a feature branch (git checkout -b feature/advanced-module)
@@ -154,15 +154,15 @@ We welcome contributions from security professionals!
 
 Please read our Security Guidelines before contributing.
 
-📄 License
+License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-👥 Authors
+Authors
 
 · GnomeMan4201 - Initial work and maintenance
 
-🙏 Acknowledgments
+Acknowledgments
 
 · Cybersecurity community for research and techniques
 · Open-source security tools that inspired this project
@@ -172,4 +172,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 Disclaimer: Use responsibly and only in ethical, legal security testing contexts.
 
-⭐ If this project helps you, please give it a star!
+⭐ If this project helps you, please give it a star
