@@ -1,23 +1,25 @@
-import dpkt, socket, argparse, json
+import argparse
+import json
+import socket
+
+import dpkt
 
 TRIGGER_PROFILES = {
     "auth": {
         "admin": "ALERT: Admin access detected",
         "password": "ALERT: Password in transit",
         "Authorization": "ALERT: Auth header found",
-        "login": "ALERT: Login form used"
+        "login": "ALERT: Login form used",
     },
-    "tokens": {
-        "token=": "ALERT: Token leak",
-        "sessionid=": "ALERT: Session ID leak"
-    },
+    "tokens": {"token=": "ALERT: Token leak", "sessionid=": "ALERT: Session ID leak"},
     "finance": {
         "creditcard": "ALERT: Credit card data found",
         "iban": "ALERT: IBAN info leak",
-        "paypal": "ALERT: PayPal activity"
+        "paypal": "ALERT: PayPal activity",
     },
-    "all": {}  # fallback to all keywords
+    "all": {},  # fallback to all keywords
 }
+
 
 def build_trigger_set(profile):
     if profile in TRIGGER_PROFILES and profile != "all":
@@ -27,22 +29,20 @@ def build_trigger_set(profile):
         all_triggers.update(d)
     return all_triggers
 
+
 def scan_payload(payload, triggers, results):
-    text = payload.decode('utf-8', errors='ignore')
+    text = payload.decode("utf-8", errors="ignore")
     for keyword, alert in triggers.items():
         if keyword in text:
-            results.append({
-                "alert": alert,
-                "keyword": keyword,
-                "payload": text[:300]
-            })
+            results.append({"alert": alert, "keyword": keyword, "payload": text[:300]})
+
 
 def watch_pcap(path, profile, output):
     triggers = build_trigger_set(profile)
     results = []
     count = 0
     try:
-        with open(path, 'rb') as f:
+        with open(path, "rb") as f:
             pcap = dpkt.pcap.Reader(f)
             for ts, buf in pcap:
                 eth = dpkt.ethernet.Ethernet(buf)
@@ -64,14 +64,15 @@ def watch_pcap(path, profile, output):
     print(f"[*] Completed. Scanned {count} TCP packets. Hits: {len(results)}")
 
     if output:
-        with open(output, 'w') as f:
+        with open(output, "w") as f:
             json.dump(results, f, indent=2)
         print(f"[+] Report saved to {output}")
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('--file', required=True, help='Path to PCAP file')
-    parser.add_argument('--profile', default="all", help='Trigger profile to use')
-    parser.add_argument('--output', help='Write alerts to a JSON file')
+    parser.add_argument("--file", required=True, help="Path to PCAP file")
+    parser.add_argument("--profile", default="all", help="Trigger profile to use")
+    parser.add_argument("--output", help="Write alerts to a JSON file")
     args = parser.parse_args()
     watch_pcap(args.file, args.profile, args.output)

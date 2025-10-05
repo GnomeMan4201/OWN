@@ -1,4 +1,6 @@
-import random, socket
+import random
+import socket
+
 from memory_engine import get_top_targets
 
 FAKE_AGENTS = [
@@ -6,8 +8,9 @@ FAKE_AGENTS = [
     "curl/7.68.0",
     "python-requests/2.28.1",
     "PostmanRuntime/7.32.2",
-    "Go-http-client/2.0"
+    "Go-http-client/2.0",
 ]
+
 
 def embed_identity(ip, port):
     ua = random.choice(FAKE_AGENTS)
@@ -22,10 +25,12 @@ def embed_identity(ip, port):
     except Exception as e:
         print(f"[!] Failed to send identity to {ip}:{port} - {e}")
 
+
 def deploy_identities():
     for t in get_top_targets():
         ip, port = t.split(":")
         embed_identity(ip, port)
+
 
 if __name__ == "__main__":
     deploy_identities()

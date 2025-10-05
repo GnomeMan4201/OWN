@@ -1,16 +1,22 @@
-import os, fcntl, struct, select
+import fcntl
+import os
+import select
+import struct
+
 from scapy.all import IP, wrpcap
 
-TUNSETIFF = 0x400454ca
-IFF_TUN   = 0x0001
+TUNSETIFF = 0x400454CA
+IFF_TUN = 0x0001
 IFF_NO_PI = 0x1000
-LOG_FILE  = "logs/capture.pcap"
+LOG_FILE = "logs/capture.pcap"
+
 
 def create_tun():
     tun = os.open("/dev/net/tun", os.O_RDWR)
-    ifr = struct.pack('16sH', b'tun0', IFF_TUN | IFF_NO_PI)
+    ifr = struct.pack("16sH", b"tun0", IFF_TUN | IFF_NO_PI)
     fcntl.ioctl(tun, TUNSETIFF, ifr)
     return tun
+
 
 def run_sniffer():
     tun = create_tun()
@@ -27,6 +33,7 @@ def run_sniffer():
     except KeyboardInterrupt:
         print(f"\n[*] Saving to {LOG_FILE}")
         wrpcap(LOG_FILE, packets)
+
 
 if __name__ == "__main__":
     run_sniffer()

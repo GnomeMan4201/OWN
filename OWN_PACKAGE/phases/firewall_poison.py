@@ -1,5 +1,9 @@
-import socket, random, time
+import random
+import socket
+import time
+
 from memory_engine import get_top_targets
+
 
 def generate_noise(ip, port):
     fake_paths = ["/login", "/update", "/status", "/info", "/health"]
@@ -16,6 +20,7 @@ def generate_noise(ip, port):
             time.sleep(0.4)
         except:
             pass
+
 
 if __name__ == "__main__":
     for tgt in get_top_targets():

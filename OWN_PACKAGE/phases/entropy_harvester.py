@@ -1,5 +1,8 @@
-import socket, ssl
+import socket
+import ssl
+
 from memory_engine import get_top_targets
+
 
 def fingerprint_tls(ip, port):
     try:
@@ -8,10 +11,11 @@ def fingerprint_tls(ip, port):
             s.settimeout(3)
             s.connect((ip, int(port)))
             cert = s.getpeercert()
-            sig_algos = cert.get('signatureAlgorithm', 'unknown')
+            sig_algos = cert.get("signatureAlgorithm", "unknown")
             print(f"[+] TLS fingerprint {ip}:{port} => {sig_algos}")
     except Exception as e:
         print(f"[!] Fingerprint fail {ip}:{port} - {e}")
+
 
 if __name__ == "__main__":
     for t in get_top_targets():

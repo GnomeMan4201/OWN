@@ -1,5 +1,8 @@
-import socket, time
+import socket
+import time
+
 from memory_engine import get_top_targets
+
 
 def ping_host(ip, port):
     payload = f"HEAD / HTTP/1.1\r\nHost: {ip}\r\n\r\n".encode()
@@ -16,6 +19,7 @@ def ping_host(ip, port):
     except:
         return -1
 
+
 def analyze_drift(samples=3):
     targets = get_top_targets()
     print(f"[*] Probing {len(targets)} targets for latency drift...")
@@ -27,6 +31,7 @@ def analyze_drift(samples=3):
         avg = sum(times) / len(times)
         delta = max(times) - min(times)
         print(f"[+] {ip}:{port} - Avg: {avg:.3f}s | Drift: {delta:.3f}s")
+
 
 if __name__ == "__main__":
     analyze_drift()

@@ -1,10 +1,16 @@
+import json
 import os
-from memory_engine import log_interaction
-import dpkt, socket, json, time, subprocess
+import socket
+import subprocess
+import time
 from pathlib import Path
+
+import dpkt
+from memory_engine import log_interaction
 
 PROFILES_FILE = "../core/behavior_profiles.json"
 CAPTURE_FILE = "../logs/capture.pcap"
+
 
 def load_profiles():
     try:
@@ -13,13 +19,15 @@ def load_profiles():
     except:
         return {}
 
+
 def match_triggers(payload, triggers):
-    text = payload.decode('utf-8', errors='ignore')
+    text = payload.decode("utf-8", errors="ignore")
     matched = []
     for keyword in triggers:
         if keyword in text:
             matched.append(keyword)
     return matched
+
 
 def take_action(actions, payload, dst_ip, dport):
     for action in actions:
@@ -35,11 +43,9 @@ def take_action(actions, payload, dst_ip, dport):
                 resp = s.recv(1024)
 
                 if b"403" in resp:
-
                     memory[key]["score"] -= 2
 
                 elif b"200" in resp and b"Set-Cookie" in resp:
-
                     memory[key]["score"] += 3
                 log_interaction(dst_ip, dport, payload, "success")
                 s.close()
@@ -52,6 +58,7 @@ def take_action(actions, payload, dst_ip, dport):
         elif action == "replay":
             subprocess.Popen(["python", "../replays/replay_attack.py"])
 
+
 def monitor():
     profiles = load_profiles()
     print("[*] BlackICE AI loop engaged.")
@@ -59,16 +66,19 @@ def monitor():
         print(f"[!] No pcap at {CAPTURE_FILE}")
         return
 
-    with open(CAPTURE_FILE, 'rb') as f:
+    with open(CAPTURE_FILE, "rb") as f:
         pcap = dpkt.pcap.Reader(f)
         for ts, buf in pcap:
             try:
                 eth = dpkt.ethernet.Ethernet(buf)
-                if not isinstance(eth.data, dpkt.ip.IP): continue
+                if not isinstance(eth.data, dpkt.ip.IP):
+                    continue
                 ip = eth.data
-                if not isinstance(ip.data, dpkt.tcp.TCP): continue
+                if not isinstance(ip.data, dpkt.tcp.TCP):
+                    continue
                 tcp = ip.data
-                if not tcp.data: continue
+                if not tcp.data:
+                    continue
 
                 payload = tcp.data
                 dst_ip = socket.inet_ntoa(ip.dst)
@@ -78,13 +88,17 @@ def monitor():
                     matched = match_triggers(payload, profiles[profile]["triggers"])
                     if matched:
                         print(f"[AI] Matched {profile} profile: {matched}")
-                        take_action(profiles[profile]["actions"], payload, dst_ip, dport)
+                        take_action(
+                            profiles[profile]["actions"], payload, dst_ip, dport
+                        )
             except Exception as e:
                 log_interaction(dst_ip, dport, payload, "fail")
                 continue
     os.system("python ../core/adaptive_mutator.py")
     from memory_engine import log_interaction
+
     print("[*] AI loop completed.")
+
 
 def monitor():
     profiles = load_profiles()
@@ -93,16 +107,19 @@ def monitor():
         print(f"[!] No pcap at {CAPTURE_FILE}")
         return
 
-    with open(CAPTURE_FILE, 'rb') as f:
+    with open(CAPTURE_FILE, "rb") as f:
         pcap = dpkt.pcap.Reader(f)
         for ts, buf in pcap:
             try:
                 eth = dpkt.ethernet.Ethernet(buf)
-                if not isinstance(eth.data, dpkt.ip.IP): continue
+                if not isinstance(eth.data, dpkt.ip.IP):
+                    continue
                 ip = eth.data
-                if not isinstance(ip.data, dpkt.tcp.TCP): continue
+                if not isinstance(ip.data, dpkt.tcp.TCP):
+                    continue
                 tcp = ip.data
-                if not tcp.data: continue
+                if not tcp.data:
+                    continue
 
                 payload = tcp.data
                 dst_ip = socket.inet_ntoa(ip.dst)
@@ -112,13 +129,17 @@ def monitor():
                     matched = match_triggers(payload, profiles[profile]["triggers"])
                     if matched:
                         print(f"[AI] Matched {profile} profile: {matched}")
-                        take_action(profiles[profile]["actions"], payload, dst_ip, dport)
+                        take_action(
+                            profiles[profile]["actions"], payload, dst_ip, dport
+                        )
             except Exception as e:
                 log_interaction(dst_ip, dport, payload, "fail")
                 continue
     os.system("python ../core/adaptive_mutator.py")
     from memory_engine import log_interaction
+
     print("[*] AI loop completed.")
+
 
 if __name__ == "__main__":
     monitor()

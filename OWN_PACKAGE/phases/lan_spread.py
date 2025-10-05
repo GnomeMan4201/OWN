@@ -1,10 +1,14 @@
-import os, socket
-from memory_engine import save_memory, load_memory
+import os
+import socket
+
+from memory_engine import load_memory, save_memory
+
 
 def get_local_subnet():
     ip = socket.gethostbyname(socket.gethostname())
     base = ".".join(ip.split(".")[:3]) + "."
     return [base + str(i) for i in range(1, 255)]
+
 
 def expand_targets():
     memory = load_memory()
@@ -14,6 +18,7 @@ def expand_targets():
             memory[key] = {"interactions": [], "score": 0}
     save_memory(memory)
     print(f"[+] Subnet targets loaded into memory.")
+
 
 if __name__ == "__main__":
     expand_targets()

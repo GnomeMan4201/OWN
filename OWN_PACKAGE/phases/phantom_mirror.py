@@ -1,4 +1,6 @@
-import socket, threading
+import socket
+import threading
+
 from memory_engine import get_top_targets
 
 RESP_TEMPLATE = """HTTP/1.1 200 OK\r
@@ -9,6 +11,7 @@ Content-Length: 42\r
 <html><body><h1>Admin Portal</h1></body></html>
 """
 
+
 def handle_client(conn, addr):
     try:
         data = conn.recv(1024)
@@ -16,6 +19,7 @@ def handle_client(conn, addr):
             conn.sendall(RESP_TEMPLATE.encode())
     finally:
         conn.close()
+
 
 def start_phantom(ip="0.0.0.0", port=8081):
     s = socket.socket()
@@ -26,6 +30,7 @@ def start_phantom(ip="0.0.0.0", port=8081):
     while True:
         client, addr = s.accept()
         threading.Thread(target=handle_client, args=(client, addr)).start()
+
 
 if __name__ == "__main__":
     start_phantom()

@@ -1,5 +1,8 @@
+import random
+import subprocess
+
 from memory_engine import get_top_targets, load_memory, save_memory
-import subprocess, random
+
 
 def react():
     mem = load_memory()

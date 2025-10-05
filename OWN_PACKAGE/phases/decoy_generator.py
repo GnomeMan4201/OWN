@@ -1,4 +1,8 @@
-import os, socket, threading, random
+import os
+import random
+import socket
+import threading
+
 from memory_engine import get_top_targets
 
 DECoy_HTML = """<html><head><title>Login Portal</title></head><body>
@@ -6,11 +10,14 @@ DECoy_HTML = """<html><head><title>Login Portal</title></head><body>
 <form><input type='text' name='user' /><input type='password' name='pass' /><input type='submit' value='Login'></form>
 </body></html>"""
 
+
 def serve_decoy(ip="0.0.0.0", port=8888):
     def handle(client, addr):
         try:
             client.recv(1024)
-            client.sendall(f"""HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: {len(DECoy_HTML)}\r\n\r\n{DECoy_HTML}""".encode())
+            client.sendall(
+                f"""HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: {len(DECoy_HTML)}\r\n\r\n{DECoy_HTML}""".encode()
+            )
         finally:
             client.close()
 
@@ -22,6 +29,7 @@ def serve_decoy(ip="0.0.0.0", port=8888):
     while True:
         client, addr = s.accept()
         threading.Thread(target=handle, args=(client, addr)).start()
+
 
 if __name__ == "__main__":
     serve_decoy()

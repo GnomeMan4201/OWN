@@ -1,7 +1,6 @@
+import os
+import re
 import time
-import time
-import time
-import re, os
 
 REDIRECT_LOG = "../logs/adaptive_redirects.log"
 OUTPUT_PAYLOADS = "../payloads/adaptive_payloads.txt"
@@ -10,6 +9,7 @@ BASE_TEMPLATES = [
     "GET {path} HTTP/1.1\r\nHost: {host}\r\nUser-Agent: BlackICE-Mutator\r\n\r\n",
     "POST {path} HTTP/1.1\r\nHost: {host}\r\nContent-Length: 29\r\n\r\nusername=admin&password=pass123",
 ]
+
 
 def extract_redirects():
     wait = 0
@@ -30,18 +30,20 @@ def extract_redirects():
                 paths.append((host, path))
     return paths
 
+
 def mutate_payloads():
     redirects = extract_redirects()
     if not redirects:
         return
 
-    with open(OUTPUT_PAYLOADS, 'w') as f:
+    with open(OUTPUT_PAYLOADS, "w") as f:
         for host, path in redirects:
             for template in BASE_TEMPLATES:
                 payload = template.format(path=path, host=host)
-                f.write(payload + '\n')
+                f.write(payload + "\n")
                 print(f"[+] Created adaptive payload for {host}{path}")
     print(f"[*] Saved mutated payloads to {OUTPUT_PAYLOADS}")
+
 
 if __name__ == "__main__":
     mutate_payloads()

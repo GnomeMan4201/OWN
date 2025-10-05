@@ -1,9 +1,13 @@
-import hashlib, json
+import hashlib
+import json
+
 from memory_engine import load_memory, save_memory
+
 
 def mutate_signature(data):
     entropy = hashlib.sha256(json.dumps(data).encode()).hexdigest()
     return entropy[:16]
+
 
 def rewrite_signatures():
     memory = load_memory()
@@ -12,6 +16,7 @@ def rewrite_signatures():
         entry["signature"] = sig
         print(f"[+] Signature updated for {key} -> {sig}")
     save_memory(memory)
+
 
 if __name__ == "__main__":
     rewrite_signatures()
