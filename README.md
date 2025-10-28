@@ -1,5 +1,8 @@
 ![OWN Logo](.github/branding/logo.png)
 
+![Tests](https://github.com/GnomeMan4201/reflexive-identity/workflows/Tests/badge.svg) ![Python](https://img.shields.io/badge/python-3.8+-blue.svg) ![License](https://img.shields.io/badge/license-MIT-green.svg) ![Stars](https://img.shields.io/github/stars/GnomeMan4201/reflexive-identity?style=social)
+
+
 # OWN - Security Tooling
 
 > **Legal Notice**: For authorized security testing, education, and research only. Users must comply with all applicable laws.
