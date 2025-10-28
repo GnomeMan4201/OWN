@@ -7,7 +7,6 @@
 
 > **Legal Notice**: For authorized security testing, education, and research only. Users must comply with all applicable laws.
 
-[![CI](https://github.com/GnomeMan4201/OWN/actions/workflows/ci.yml/badge.svg)](https://github.com/GnomeMan4201/OWN/actions)
 [![Security](https://img.shields.io/badge/Security-Audited-green.svg)](SECURITY.md)
 
 ## Quick Start
