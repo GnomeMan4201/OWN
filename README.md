@@ -1,4 +1,6 @@
 <p align="center">
+[![CI](https://github.com/GnomeMan4201/OWN/actions/workflows/ci.yml/badge.svg)](https://github.com/GnomeMan4201/OWN/actions/workflows/ci.yml)
+
   <img src=".github/branding/logo.png" alt="OWN" width="340"/>
 </p>
 
